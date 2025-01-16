@@ -8,3 +8,6 @@ const data = await SolanaTracker.token(
 
 const parsedData = parseTokenData(data);
 console.log(parsedData);
+
+// const data = await SolanaTracker.tokensByVolume();
+// console.log(data[0]);

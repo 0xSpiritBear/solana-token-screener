@@ -1,4 +1,4 @@
-import { parsePools } from "./helpers";
+import { parsePools } from "./utils/pools";
 
 export function parseTokenData(tokenData: any): any {
   const { pools } = tokenData;
@@ -8,8 +8,8 @@ export function parseTokenData(tokenData: any): any {
   //   const { liquidity, volume } = pools.reduce(
   const {
     totalLiquidity,
-    totalVolume,
-    lockedLiquidity,
+    cumulativeVolume,
+    sufficientLockedLiquidity,
     totalBuys,
     totalSells,
   } = parsePools(pools);
@@ -22,8 +22,8 @@ export function parseTokenData(tokenData: any): any {
 
   return {
     totalLiquidity,
-    totalVolume,
-    lockedLiquidity,
+    cumulativeVolume,
+    sufficientLockedLiquidity,
     totalBuys,
     totalSells,
   };
