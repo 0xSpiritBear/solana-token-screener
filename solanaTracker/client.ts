@@ -17,6 +17,12 @@ export class SolanaTracker {
     return await this.fetchData(path);
   }
 
+  static async trendingTokens() {
+    const path = "tokens/trending";
+
+    return await this.fetchData(path);
+  }
+
   private static async fetchData(path: string) {
     if (!this.apiKey) throw new Error("Missing Solana Tracker API key");
 
