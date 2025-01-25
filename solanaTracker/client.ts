@@ -23,6 +23,12 @@ export class SolanaTracker {
     return await this.fetchData(path);
   }
 
+  static async top100Holders(token: string) {
+    const path = `tokens/${token}/holders`;
+
+    return await this.fetchData(path);
+  }
+
   private static async fetchData(path: string) {
     if (!this.apiKey) throw new Error("Missing Solana Tracker API key");
 
