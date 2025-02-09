@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Holders {
+  id                           Int @id @default(autoincrement())
+  timestamp                    DateTime
+  token                        String
+  totalTokens                  Int
+  totalHolders                 Int
+  top10Percent                 Float
+  top25Percent                 Float
+  top50Percent                 Float
+  top100Percent                Float
+  top500Percent                Float
+  top1000Percent               Float
+  top5000Percent               Float
+  top10000Percent              Float
+  holdingAtLeast100Dollars     Int
+  holdingAtLeast1000Dollars    Int
+  holdingAtLeast10000Dollars   Int
+  holdingAtLeast100000Dollars  Int
+  holdingAtLeast500000Dollars  Int
+  holdingAtLeast1000000Dollars Int
+}

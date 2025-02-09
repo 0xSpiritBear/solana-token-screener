@@ -1,7 +1,7 @@
-import { parseEvents } from "./utils/events";
-import { parsePools } from "./utils/pools";
-import { parseRisks } from "./utils/risks";
-import { parseTokenInfo } from "./utils/token";
+import { parseEvents } from "./tokenParser/utils/events";
+import { parsePools } from "./tokenParser/utils/pools";
+import { parseRisks } from "./tokenParser/utils/risks";
+import { parseTokenInfo } from "./tokenParser/utils/token";
 
 export function parseTokenData(tokenData: any): any {
   // console.log(tokenData);

@@ -1,7 +1,7 @@
 import type {
   ParsedTokenData,
   parseTokenData,
-} from "../../parser/tokenParser/parser";
+} from "../../parser/solanaTracker/parser";
 
 export function scoreTokenForLP({
   hasFileMetaData,

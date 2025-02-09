@@ -1,62 +1,23 @@
+import { PublicKey } from "@solana/web3.js";
+import { parseTokenHolders } from "./parser/rpc/token/holders";
+import { getAllTokenHolders } from "./rpc/tokens";
+import { createHolderRecord } from "./db/holders/create";
 import { SolanaTracker } from "./solanaTracker/client";
-import { parseTokenData } from "./parser/tokenParser/parser";
-import { parseEvents } from "./parser/tokenParser/utils/events";
-import { scoreTokenForLP } from "./scorer/lp/scorer";
-import { parseTop100Holders } from "./parser/holderParser/top100HoldersParser";
 
-// const data = await SolanaTracker.token(
-//   //   "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump"
-//   // "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump"
-//   // "FpRGCAeSbQEVVnTBnnQ2Vnyv6bmngx6eG5rbGuxHCJ1w"
-//   "4FkNq8RcCYg4ZGDWh14scJ7ej3m5vMjYTcWoJVkupump"
-// );
+const fartcoin = new PublicKey("9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump");
+const jailstool = new PublicKey("AxriehR6Xw3adzHopnvMn7GcpRFcD41ddpiTWMg6pump");
+const ufd = new PublicKey("eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump");
 
-// console.log(data.risk.risks);
-// console.log(data);
-
-// const data = await SolanaTracker.trendingTokens();
-
-// const parsedTokens = data
-//   .map((token: any) => {
-//     const parsedData = parseTokenData(token);
-//     const lpScore = scoreTokenForLP(parsedData);
-
-//     return {
-//       ...parsedData,
-//       lpScore,
-//     };
-//   })
-//   .sort((a: any, b: any) => b.lpScore - a.lpScore)
-//   .filter((token: any) => !token.rugged);
-
-// for (let i = 0; i < 5; i++) {
-//   console.log(parsedTokens[i]);
-// }
-
-// const parsedData = parseTokenData(data);
-// const score = scoreTokenForLP(parsedData);
-
-// const parsedAndScore = {
-//   ...parsedData,
-//   score,
-// };
-
-// console.log(parsedAndScore);
-
-// const parsedData = parseTokenData(data);
-// const finalScore = scoreTokenForLP(parsedData);
-// console.log("final score", finalScore);
-
-// const data = await SolanaTracker.tokensByVolume();
-// console.log(data[0]);
-
-const data = await SolanaTracker.top100Holders(
-  // "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump" // fartcoin
-  // "4FkNq8RcCYg4ZGDWh14scJ7ej3m5vMjYTcWoJVkupump" // lumo
-  // "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump" // ufd
-  // "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9" //giga
-  "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump" //arc
+const { price } = await SolanaTracker.price(
+  "AxriehR6Xw3adzHopnvMn7GcpRFcD41ddpiTWMg6pump"
 );
 
-const total = parseTop100Holders(data);
-console.log("->", total);
+const holders = await getAllTokenHolders(jailstool);
+
+const top10 = holders.slice(0, 10);
+console.log(top10);
+
+const holderData = parseTokenHolders(holders, price);
+await createHolderRecord(holderData);
+
+console.log("success");
